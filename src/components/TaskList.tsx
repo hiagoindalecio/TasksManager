@@ -40,11 +40,29 @@ export function TaskList() {
   }
 
   function handleToggleTaskCompletion(id: number) {
-    // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
+    // Altera a situação de um task de acordo com a situação atual
+    let currentTasks = tasks.filter(task => task.id !== id);
+    let modificatedTask = tasks.find(task => task.id === id);
+
+    if (modificatedTask) {
+      modificatedTask.isComplete = !modificatedTask.isComplete;
+      currentTasks = [...currentTasks, modificatedTask];
+      setTasks(currentTasks);
+    } else {
+      setModalText('Não foi possível encontrar a todo selecionada!');
+      setModalBgColor('#f63030');
+      setIsModalHidden(false);
+      setTimeout(() => {setIsModalHidden(true)}, 5000);
+    }
   }
 
   function handleRemoveTask(id: number) {
-    // Remova uma task da listagem pelo ID
+    // Remove uma task da listagem pelo ID
+    setTasks(tasks.filter(task => task.id !== id));
+    setModalText('A task foi excluída com sucesso!');
+    setModalBgColor('#68BB59');
+    setIsModalHidden(false);
+    setTimeout(() => {setIsModalHidden(true)}, 5000);
   }
 
   return (
