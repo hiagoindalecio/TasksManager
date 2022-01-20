@@ -15,15 +15,27 @@ interface Task {
 export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
+
+  //Modal props
   const [isModalHidden, setIsModalHidden] = useState(true);
+  const [modalBgColor, setModalBgColor] = useState('');
+  const [modalText, setModalText] = useState('');
 
   function handleCreateNewTask() {
     // Criar uma nova task com um id random, não permite criar caso o título seja vazio.
     if (newTaskTitle !== '') {
+      setTasks([...tasks, { id: Math.random(), title: newTaskTitle, isComplete: false }]);
+      setNewTaskTitle('');
 
-    } else {
+      setModalText('Todo adicionado com sucesso');
+      setModalBgColor('#68BB59');
       setIsModalHidden(false);
-      setTimeout(() => {setIsModalHidden(true)}, 5000)
+      setTimeout(() => {setIsModalHidden(true)}, 5000);
+    } else {
+      setModalText('Você deve adicionar um título!');
+      setModalBgColor('#f63030');
+      setIsModalHidden(false);
+      setTimeout(() => {setIsModalHidden(true)}, 5000);
     }
   }
 
@@ -38,8 +50,8 @@ export function TaskList() {
   return (
     <>
     <Alert
-      text="Você deve adicionar um título!"
-      bgColor='#f63030' 
+      text={modalText}
+      bgColor={modalBgColor}
       hide={isModalHidden} />
     <section className="task-list container">
 
