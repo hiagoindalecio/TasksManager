@@ -25,6 +25,7 @@ export function TaskList() {
     // Criar uma nova task com um id random, não permite criar caso o título seja vazio.
     if (newTaskTitle !== '') {
       setTasks([...tasks, { id: Math.random(), title: newTaskTitle, isComplete: false }]);
+      
       setNewTaskTitle('');
 
       setModalText('Todo adicionado com sucesso');
@@ -41,28 +42,25 @@ export function TaskList() {
 
   function handleToggleTaskCompletion(id: number) {
     // Altera a situação de um task de acordo com a situação atual
-    let currentTasks = tasks.filter(task => task.id !== id);
-    let modificatedTask = tasks.find(task => task.id === id);
+    const newTasks = tasks.map(task => task.id === id ? {
+      ...task,
+      isComplete: !task.isComplete
+    } : task);
 
-    if (modificatedTask) {
-      modificatedTask.isComplete = !modificatedTask.isComplete;
-      currentTasks = [...currentTasks, modificatedTask];
-      setTasks(currentTasks);
-      setModalText('O todo foi modificado com sucesso!');
-      setModalBgColor('#68BB59');
-      setIsModalHidden(false);
-      setTimeout(() => {setIsModalHidden(true)}, 4000);
-    } else {
-      setModalText('Não foi possível encontrar o todo selecionado!');
-      setModalBgColor('#f63030');
-      setIsModalHidden(false);
-      setTimeout(() => {setIsModalHidden(true)}, 4000);
-    }
+    setTasks(newTasks);
+    
+    setModalText('O todo foi modificado com sucesso!');
+    setModalBgColor('#68BB59');
+    setIsModalHidden(false);
+    setTimeout(() => {setIsModalHidden(true)}, 4000);
   }
 
   function handleRemoveTask(id: number) {
     // Remove uma task da listagem pelo ID
-    setTasks(tasks.filter(task => task.id !== id));
+    const newTasks = tasks.filter(task => task.id !== id);
+
+    setTasks(newTasks);
+
     setModalText('O todo foi excluído com sucesso!');
     setModalBgColor('#68BB59');
     setIsModalHidden(false);
