@@ -30,12 +30,12 @@ export function TaskList() {
       setModalText('Todo adicionado com sucesso');
       setModalBgColor('#68BB59');
       setIsModalHidden(false);
-      setTimeout(() => {setIsModalHidden(true)}, 5000);
+      setTimeout(() => {setIsModalHidden(true)}, 4000);
     } else {
       setModalText('Você deve adicionar um título!');
       setModalBgColor('#f63030');
       setIsModalHidden(false);
-      setTimeout(() => {setIsModalHidden(true)}, 5000);
+      setTimeout(() => {setIsModalHidden(true)}, 4000);
     }
   }
 
@@ -48,21 +48,25 @@ export function TaskList() {
       modificatedTask.isComplete = !modificatedTask.isComplete;
       currentTasks = [...currentTasks, modificatedTask];
       setTasks(currentTasks);
+      setModalText('O todo foi modificado com sucesso!');
+      setModalBgColor('#68BB59');
+      setIsModalHidden(false);
+      setTimeout(() => {setIsModalHidden(true)}, 4000);
     } else {
-      setModalText('Não foi possível encontrar a todo selecionada!');
+      setModalText('Não foi possível encontrar o todo selecionado!');
       setModalBgColor('#f63030');
       setIsModalHidden(false);
-      setTimeout(() => {setIsModalHidden(true)}, 5000);
+      setTimeout(() => {setIsModalHidden(true)}, 4000);
     }
   }
 
   function handleRemoveTask(id: number) {
     // Remove uma task da listagem pelo ID
     setTasks(tasks.filter(task => task.id !== id));
-    setModalText('A task foi excluída com sucesso!');
+    setModalText('O todo foi excluído com sucesso!');
     setModalBgColor('#68BB59');
     setIsModalHidden(false);
-    setTimeout(() => {setIsModalHidden(true)}, 5000);
+    setTimeout(() => {setIsModalHidden(true)}, 4000);
   }
 
   return (
